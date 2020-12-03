@@ -5,6 +5,10 @@ let regeneratorRuntime = require("regenerator-runtime");
 const key = `8e70c3ac-4bf9-4f4c-91b1-da53ffd062eb`;
 const query = `https://api.TheDogAPI.com/v1/breeds?api_key=${key}`;
 
+function filterFunction() {
+
+}
+
 const init = async function () {
   try {
     const response = await fetch(query);
@@ -55,6 +59,24 @@ const init = async function () {
   } catch (error) {
     console.log(error);
   }
+
+  DOMSelectors.btn.addEventListener("click", () => {
+    document.getElementById("myDropdown").classList.toggle("show");
+  });
+  
+  DOMSelectors.input.addEventListener("keyup", () => {
+    const filter = DOMSelectors.input.value.toUpperCase();
+    const div = document.getElementById("myDropdown");
+    const a = div.getElementsByTagName("a");
+    for (let i = 0; i < a.length; i++) {
+      const txtValue = a[i].textContent || a[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        a[i].style.display = "";
+      } else {
+        a[i].style.display = "none";
+      }
+    }
+  })
 };
 
 init();
